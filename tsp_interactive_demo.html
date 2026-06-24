@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mô phỏng tương tác trực quan giải thuật Bài toán người đi du lịch (Traveling Salesman Problem - TSP) bằng các thuật toán Nearest Neighbor, 2-Opt và Brute Force.">
+  <title>Traveling Salesman Problem (TSP) — Trực Quan Hóa Thuật Toán</title>
+  <link rel="stylesheet" href="tsp_interactive_demo.css">
+  <script src="tsp_interactive_demo.js" defer></script>
+</head>
+<body>
+  <main id="tsp-app">
+    <header class="app-header">
+      <div class="app-title-container">
+        <h1 class="app-title">Traveling Salesman Problem</h1>
+      </div>
+      <p class="app-subtitle">Trực quan hóa và so sánh các thuật toán tìm đường đi ngắn nhất qua các thành phố.</p>
+    </header>
+
+    <div class="app-grid">
+      <!-- Cột trái: Bản đồ trực quan -->
+      <section class="canvas-panel">
+        <h2 class="sr-only">Bản đồ tương tác</h2>
+        <div class="canvas-wrapper">
+          <canvas id="map-canvas"></canvas>
+        </div>
+        <div class="panel-footer-tip">
+          <span>💡</span>
+          <span>Click lên bản đồ để đặt thêm thành phố, hoặc sử dụng các bộ điểm ngẫu nhiên bên phải.</span>
+        </div>
+      </section>
+
+      <!-- Cột phải: Bảng điều khiển & Thống kê -->
+      <aside class="controls-panel">
+        <!-- Lựa chọn thuật toán -->
+        <section class="algo-selector-wrapper">
+          <h2 class="section-title">
+            <span>Thuật toán</span>
+            <span id="exact-warn" class="badge badge-amber" style="display: none;">⚠ Chỉ nên ≤ 8 điểm</span>
+          </h2>
+          <div class="algo-selector">
+            <button class="algo-btn active" data-algo="nn" id="btn-nn">Nearest Neighbor</button>
+            <button class="algo-btn" data-algo="2opt" id="btn-2opt">2-Opt</button>
+            <button class="algo-btn" data-algo="exact" id="btn-exact">Brute Force</button>
+          </div>
+        </section>
+
+        <!-- Thông tin chi tiết thuật toán -->
+        <section id="algo-info" class="info-box"></section>
+
+        <!-- Thống kê kết quả -->
+        <section class="stats-panel">
+          <h2 class="section-title">Thông số hiện tại</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-lbl">Thành phố</span>
+              <span class="stat-val" id="stat-cities">0</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-lbl">Quãng đường</span>
+              <span class="stat-val" id="stat-dist">—</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-lbl">Thời gian</span>
+              <span class="stat-val" id="stat-time">—</span>
+              <span class="stat-lbl" style="font-size: 0.6rem; text-transform: lowercase; margin-top: -2px;">milliseconds</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-lbl">Độ phức tạp</span>
+              <span class="stat-val" id="stat-complexity">—</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bảng điều khiển hành động -->
+        <section class="actions-panel">
+          <h2 class="section-title">Điều khiển</h2>
+          <div class="actions-group">
+            <div class="action-row-main" style="margin-bottom: 0.75rem;">
+              <button class="action primary" id="btn-run">▶ Tìm đường đi ngắn nhất</button>
+            </div>
+            <div class="action-row-sub" style="margin-bottom: 0.75rem;">
+              <button class="action" id="btn-add-8">+ 8 điểm ngẫu nhiên</button>
+              <button class="action" id="btn-add-15">+ 15 điểm ngẫu nhiên</button>
+            </div>
+            <div class="action-row-utility">
+              <button class="action" id="btn-demo">🗺 Demo: TP.HCM</button>
+              <button class="action danger" id="btn-reset">Xóa tất cả</button>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
